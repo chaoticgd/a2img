@@ -1,0 +1,71 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Blurs",
+	"displayName": "Radial Blur",
+	"stages": [
+		{
+			"vertexShader": "vertex.glsl", 
+			"fragmentShader": "fragment.glsl",
+			"wrapMode": "clampToEdge"
+		}
+	],
+	"properties": [
+		{
+			"type": "int",
+			"glslName": "radius",
+			"displayName": "Blur Radius",
+			"value": 4,
+			"minimum": 4,
+			"maximum": 100,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "float",
+			"glslName": "focusPointX",
+			"displayName": "Focus Point X",
+			"value": 0.5,
+			"minimum": 0,
+			"maximum": 1,
+			"hardMinimum": -999,
+			"hardMaximum": 999,
+			"decimalPlaces": 2
+		},
+		{
+			"type": "float",
+			"glslName": "focusPointY",
+			"displayName": "Focus Point Y",
+			"value": 0.5,
+			"minimum": 0,
+			"maximum": 1,
+			"hardMinimum": -999,
+			"hardMaximum": 999,
+			"decimalPlaces": 2
+		},
+		{
+			"type": "int",
+			"glslName": "innerRadius",
+			"displayName": "Inner Radius",
+			"value": 200,
+			"minimum": 0,
+			"maximum": 1000,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "outerRadius",
+			"displayName": "Outer Radius",
+			"value": 400,
+			"minimum": 0,
+			"maximum": 1000,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "quality",
+			"displayName": "Quality",
+			"value": 50,
+			"minimum": 1,
+			"maximum": 100
+		}
+	] 
+}

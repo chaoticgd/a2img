@@ -1,0 +1,36 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Blurs",
+	"displayName": "Gaussian Blur",
+	"stages": [
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "horizontalPass.glsl",
+			"wrapMode": "clampToEdge"
+		},
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "verticalPass.glsl",
+			"wrapMode": "clampToEdge"
+		}
+	],
+	"properties": [
+		{
+			"type": "int",
+			"glslName": "radius",
+			"displayName": "Radius",
+			"value": 4,
+			"minimum": 4,
+			"maximum": 100,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "quality",
+			"displayName": "Quality",
+			"value": 50,
+			"minimum": 1,
+			"maximum": 100
+		}
+	] 
+}

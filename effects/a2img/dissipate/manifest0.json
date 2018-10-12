@@ -1,0 +1,24 @@
+{
+	"apiVersion": "0.1",
+	"category": "Distortions",
+	"displayName": "Dissipate",
+	"stages": [
+		{
+			"vertexShader": "../vertex.glsl",
+			"fragmentShader": "fragment.glsl",
+			"wrapMode": "clampToEdge"
+		}
+	],
+	"properties": [
+		{
+			"type": "float",
+			"glslName": "intensity",
+			"displayName": "Intensity",
+			"value": 1,
+			"minimum": -1000,
+			"maximum": 1000,
+			"hardMaximum": 100000,
+			"decimalPlaces": 2
+		}
+	]
+}

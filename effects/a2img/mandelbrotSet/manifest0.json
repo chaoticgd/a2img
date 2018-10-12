@@ -1,0 +1,64 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Fractals",
+	"displayName": "Mandelbrot Set",
+	"stages": [
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "fractal.glsl"
+		},
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "colour_basic.glsl"
+		}
+	], 
+	"properties": [
+		{
+			"type": "int",
+			"glslName": "numIterations",
+			"displayName": "Iterations",
+			"value": 50,
+			"minimum": 1,
+			"maximum": 999
+		},
+		{
+			"type": "float",
+			"glslName": "scale",
+			"displayName": "Scale",
+			"value": 20,
+			"minimum": 1,
+			"maximum": 200,
+			"hardMaximum": 9999,
+			"decimalPlaces": 2
+		},
+		{
+			"type": "float",
+			"glslName": "positionX",
+			"displayName": "Position X",
+			"value": 0,
+			"minimum": -2,
+			"maximum": 2,
+			"decimalPlaces": 4
+		},
+		{
+			"type": "float",
+			"glslName": "positionY",
+			"displayName": "Position Y",
+			"value": 0,
+			"minimum": -2,
+			"maximum": 2,
+			"decimalPlaces": 4
+		},
+		{
+			"type": "enum",
+			"glslName": "colour",
+			"displayName": "Colour",
+			"value": 0,
+			"options": [
+				"Basic",
+				"Aqua"
+			]
+		}
+
+	] 
+}

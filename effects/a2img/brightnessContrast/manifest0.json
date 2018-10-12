@@ -1,0 +1,31 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Colour",
+	"displayName": "Brightness && Contrast",
+	"stages": [ 
+		{ 
+			"vertexShader": "vertex.glsl", 
+			"fragmentShader": "fragment.glsl" 
+		}
+	], 
+	"properties": [ 
+		{ 
+			"type": "float", 
+			"glslName": "brightness", 
+			"displayName": "Brightness", 
+			"value": 0,
+			"minimum": -1,
+			"maximum": 1,
+			"decimalPlaces": 2
+		},
+		{ 
+			"type": "float", 
+			"glslName": "contrast", 
+			"displayName": "Contrast", 
+			"value": 0,
+			"minimum": -1,
+			"maximum": 1,
+			"decimalPlaces": 2
+		}
+	] 
+}

@@ -1,0 +1,41 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Artistic",
+	"displayName": "Pixelate",
+	"stages": [
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "fragment.glsl",
+			"wrapMode": "clampToEdge"
+		}
+	], 
+	"properties": [
+		{
+			"type": "int",
+			"glslName": "pixelSize",
+			"displayName": "Pixel Size",
+			"value": 1,
+			"minimum": 1,
+			"maximum": 500,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "offsetX",
+			"displayName": "Offset X",
+			"value": 0,
+			"minimum": 0,
+			"maximum": 1000,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "offsetY",
+			"displayName": "Offset Y",
+			"value": 0,
+			"minimum": 0,
+			"maximum": 1000,
+			"hardMaximum": 9999
+		}
+	] 
+}

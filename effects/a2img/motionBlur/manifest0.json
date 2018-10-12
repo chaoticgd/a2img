@@ -1,0 +1,40 @@
+{ 
+	"apiVersion": "0.1",
+	"category": "Blurs",
+	"displayName": "Motion Blur",
+	"stages": [
+		{
+			"vertexShader": "vertex.glsl",
+			"fragmentShader": "fragment.glsl",
+			"wrapMode": "clampToEdge"
+		}
+	],
+	"properties": [
+		{
+			"type": "int",
+			"glslName": "radius",
+			"displayName": "Radius",
+			"value": 4,
+			"minimum": 4,
+			"maximum": 100,
+			"hardMaximum": 9999
+		},
+		{
+			"type": "int",
+			"glslName": "angle",
+			"displayName": "Angle",
+			"value": 0,
+			"minimum": 0,
+			"maximum": 180,
+			"suffix": "\u00B0"
+		},
+		{
+			"type": "int",
+			"glslName": "quality",
+			"displayName": "Quality",
+			"value": 50,
+			"minimum": 1,
+			"maximum": 100
+		}
+	] 
+}

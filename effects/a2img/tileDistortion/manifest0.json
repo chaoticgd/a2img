@@ -1,0 +1,23 @@
+{
+	"apiVersion": "0.1",
+	"category": "Distortions",
+	"displayName": "Tile",
+	"stages": [
+		{
+			"vertexShader": "../vertex.glsl",
+			"fragmentShader": "fragment.glsl"
+		}
+	],
+	"properties": [
+		{
+			"type": "float",
+			"glslName": "tileSize",
+			"displayName": "Tile Size",
+			"value": 1,
+			"minimum": 1,
+			"maximum": 1000,
+			"hardMaximum": 100000,
+			"decimalPlaces": 2
+		}
+	]
+}

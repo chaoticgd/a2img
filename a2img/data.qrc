@@ -1,0 +1,47 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/brushTool.svg</file>
+        <file>icons/colourPickerHsv.svg</file>
+        <file>icons/colourPickerPalette.svg</file>
+        <file>icons/downArrow.svg</file>
+        <file>icons/downArrowHover.svg</file>
+        <file>icons/fillTool.svg</file>
+        <file>icons/logo.svg</file>
+        <file>icons/logo_exp.svg</file>
+        <file>icons/selectionTool.svg</file>
+        <file>icons/upArrow.svg</file>
+        <file>icons/upArrowHover.svg</file>
+        <file>icons/viewTool.svg</file>
+        <file>icons/colourPickerRgb.svg</file>
+        <file>css/stylesheet.css</file>
+        <file>icons/colourPickerHandle.svg</file>
+        <file>icons/colourPalette.svg</file>
+        <file>shaders/chequerboard_fragment.glsl</file>
+        <file>shaders/chequerboard_vertex.glsl</file>
+        <file>shaders/texture_vertex.glsl</file>
+        <file>shaders/texture_fragment.glsl</file>
+        <file>shaders/global_fill_vertex.glsl</file>
+        <file>shaders/global_fill_fragment.glsl</file>
+        <file>shaders/colour_mask_vertex.glsl</file>
+        <file>shaders/colour_mask_multiply_fragment.glsl</file>
+        <file>shaders/colour_mask_fragment.glsl</file>
+        <file>shaders/brush_segment_vertex.glsl</file>
+        <file>shaders/brush_segment_fragment.glsl</file>
+        <file>shaders/brush_endpoint_vertex.glsl</file>
+        <file>shaders/brush_endpoint_fragment.glsl</file>
+        <file>shaders/selection_fragment.glsl</file>
+        <file>shaders/mask_texture_fragment.glsl</file>
+        <file>shaders/mask_texture_vertex.glsl</file>
+        <file>icons/logoTitle.svg</file>
+        <file>icons/logoTitleDark.svg</file>
+        <file>css/stylesheetDark.css</file>
+        <file>icons/colourPickerHandleDark.svg</file>
+        <file>effects_include/blurQuality.glsl</file>
+        <file>effects_include/complex.glsl</file>
+        <file>effects_include/constants.glsl</file>
+        <file>effects_include/gaussian.glsl</file>
+        <file>effects_include/colour/hsv.glsl</file>
+        <file>icons/textTool.svg</file>
+        <file>icons/lassoTool.svg</file>
+    </qresource>
+</RCC>
