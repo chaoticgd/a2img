@@ -115,8 +115,6 @@ namespace a2img {
 
 		QString name_;
 		Texture texture_;
-		QOpenGLShaderProgram textureShader_;
-		QOpenGLShaderProgram chequerBoardShader_;
 		std::vector<std::unique_ptr<TextureStorageCommand>> queuedCommands_;
 		bool isVisible_;
 		QPixmap thumbnail_;

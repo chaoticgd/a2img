@@ -33,12 +33,6 @@ namespace a2img {
 		GlobalFillCommand(Layer* layer, QColor colour, int tolerance);
 
 		Texture renderToTexture(GlFunctions* gl, const Texture& in, bool preview);
-
-	protected:
-		void loadShaders();
-
-	private:
-		QOpenGLShaderProgram shader_;
 	};
 }
 

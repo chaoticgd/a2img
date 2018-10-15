@@ -105,9 +105,6 @@ namespace a2img {
 		GlFunctions gl_;
 		float zoomPercentage_;
 
-		QOpenGLShaderProgram chequerBoardShader_;
-        QOpenGLShaderProgram textureShader_;
-		QOpenGLShaderProgram selectionShader_;
 		QRectF lastViewportRectangle_;
 		QTimer liveUpdateTimer_;
 

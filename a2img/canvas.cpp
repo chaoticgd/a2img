@@ -34,29 +34,6 @@ a2img::Canvas::Canvas(Application* app)
 	  zoomPercentage_(100),
 	  lastViewportRectangle_(0, 0, 0, 0)
 {
-	app_->canvas()->draw([=](GlFunctions* gl) {
-
-		A2_GL_ENTER(gl)
-
-		// Load shader to draw the chequerboard background
-		// for transparent images.
-		chequerBoardShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/chequerboard_vertex.glsl");
-		chequerBoardShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/chequerboard_fragment.glsl");
-		chequerBoardShader_.link();
-
-		// Load the shader to draw the image normally.
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/texture_vertex.glsl");
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/texture_fragment.glsl");
-		textureShader_.link();
-
-		// Load the shader to draw a selection area.
-		selectionShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/texture_vertex.glsl");
-		selectionShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/selection_fragment.glsl");
-		selectionShader_.link();
-
-		A2_GL_EXIT(gl)
-	});
-
 	liveUpdateTimer_.setInterval(10);
 	QObject::connect(&liveUpdateTimer_, &QTimer::timeout, [=]() {
 		update(RedrawMode::onlyRedrawForeground);
@@ -255,12 +232,13 @@ void a2img::Canvas::drawChequerBoard(QPointF scrollPosition, std::function<void(
 {
 	A2_GL_ENTER(&gl_)
 
-	chequerBoardShader_.bind();
+	auto chequerBoardShader = app_->shaderManager.get("chequerboard");
+	chequerBoardShader->bind();
 
-	GLint scrollPositionLoc = chequerBoardShader_.uniformLocation("scrollPosition");
+	GLint scrollPositionLoc = chequerBoardShader->uniformLocation("scrollPosition");
 	gl_.glUniform2f(scrollPositionLoc, scrollPosition.x(), scrollPosition.y());
 
-	GLint tileSizeLoc = chequerBoardShader_.uniformLocation("tileSize");
+	GLint tileSizeLoc = chequerBoardShader->uniformLocation("tileSize");
 	gl_.glUniform1i(tileSizeLoc, 8);
 
 	drawArrays();
@@ -272,14 +250,15 @@ void a2img::Canvas::drawLayers(GLuint layersTexture, std::function<void()> drawA
 {
 	A2_GL_ENTER(&gl_)
 
-	textureShader_.bind();
+	auto textureShader = app_->shaderManager.get("texture");
+	textureShader->bind();
 
 
 	// Texture
 	gl_.glActiveTexture(GL_TEXTURE0);
 	gl_.glBindTexture(GL_TEXTURE_2D, layersTexture);
 
-	GLint location = textureShader_.uniformLocation("texture");
+	GLint location = textureShader->uniformLocation("texture");
 	gl_.glUniform1i(location, 0);
 
 	// Draw Call
@@ -299,20 +278,21 @@ void a2img::Canvas::drawSelectionOverlay(std::function<void()> drawArrays)
 		return;
 	}
 
-	selectionShader_.bind();
+	auto selectionShader = app_->shaderManager.get("selection");
+	selectionShader->bind();
 
 	// Texture
 	doc->selectionMask().bind(&gl_, 0, TextureQuality::pixelated);
 
-	GLint maskLocation = selectionShader_.uniformLocation("mask");
+	GLint maskLocation = selectionShader->uniformLocation("mask");
 	gl_.glUniform1i(maskLocation, 0);
 
 
-	GLint sizeLocation = selectionShader_.uniformLocation("viewportSize");
+	GLint sizeLocation = selectionShader->uniformLocation("viewportSize");
 	float zoom = getZoomPercentage() / 100;
 	gl_.glUniform2f(sizeLocation, doc->size().width() * zoom, doc->size().height() * zoom);
 
-	GLint timeLocation = selectionShader_.uniformLocation("time");
+	GLint timeLocation = selectionShader->uniformLocation("time");
 	gl_.glUniform1f(timeLocation, (QDateTime::currentMSecsSinceEpoch() % 256) / 32);
 
 	// Draw Call

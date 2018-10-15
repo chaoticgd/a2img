@@ -50,11 +50,6 @@ namespace a2img {
 
 	private:
 		Application* app_;
-
-		QOpenGLShaderProgram colourShader_;
-		QOpenGLShaderProgram colourMultiplyShader_;
-		QOpenGLShaderProgram maskTextureShader_;
-		QOpenGLShaderProgram whiteShader_;
 	};
 }
 
