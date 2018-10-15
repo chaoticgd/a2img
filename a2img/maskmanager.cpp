@@ -26,7 +26,6 @@
 a2img::MaskManager::MaskManager(Application* app)
 	: app_(app)
 {
-	loadShaders();
 }
 
 a2img::Texture a2img::MaskManager::createMask(GlFunctions* gl, Vec2<int> size, Rectangle<int> foregroundRectangle)
@@ -46,7 +45,7 @@ a2img::Texture a2img::MaskManager::createMask(GlFunctions* gl, Vec2<int> size, R
 		Rectangle<float>(foregroundRectangle).toScreenSpace(viewport).vertexData()
 	};
 
-	whiteShader_.bind();
+	app_->shaderManager.get("brush_segment")->bind();
 	gl->drawArrays(vertexBuffer);
 
 	return Texture(app_, fbo);
@@ -69,11 +68,11 @@ a2img::Texture a2img::MaskManager::applyMask(GlFunctions* gl, QColor foreground,
 	QOpenGLShaderProgram* currentShader;
 	switch(blendMode) {
 	case BlendMode::normal:
-		currentShader = &colourShader_;
+		currentShader = app_->shaderManager.get("colour_mask");
 		break;
 	case BlendMode::multiply:
 		// Used for the highlighter pen.
-		currentShader = &colourMultiplyShader_;
+		currentShader = app_->shaderManager.get("colour_mask_multiply");
 		break;
 	}
 	currentShader->bind();
@@ -129,20 +128,21 @@ a2img::Texture a2img::MaskManager::applyMask(GlFunctions* gl, const Texture& for
 	gl->glClearColor(0, 0, 0, 0);
 	gl->glClear(GL_COLOR_BUFFER_BIT);
 
-	maskTextureShader_.bind();
+	auto textureShader = app_->shaderManager.get("mask_texture");
+	textureShader->bind();
 
 	// Texture
 	foreground.bind(gl, 0, TextureQuality::pixelated);
 	background.bind(gl, 1, TextureQuality::pixelated);
 	mask.bind(gl, 2, TextureQuality::pixelated);
 
-	GLint foregroundLocation = maskTextureShader_.uniformLocation("foregroundSampler");
+	GLint foregroundLocation = textureShader->uniformLocation("foregroundSampler");
 	gl->glUniform1i(foregroundLocation, 0);
 
-	GLint backgroundLocation = maskTextureShader_.uniformLocation("backgroundSampler");
+	GLint backgroundLocation = textureShader->uniformLocation("backgroundSampler");
 	gl->glUniform1i(backgroundLocation, 1);
 
-	GLint maskLocation = maskTextureShader_.uniformLocation("maskSampler");
+	GLint maskLocation = textureShader->uniformLocation("maskSampler");
 	gl->glUniform1i(maskLocation, 2);
 
 	// Draw
@@ -154,35 +154,4 @@ a2img::Texture a2img::MaskManager::applyMask(GlFunctions* gl, const Texture& for
 	A2_GL_EXIT(gl)
 
 	return Texture(app_, fbo);
-}
-
-void a2img::MaskManager::loadShaders()
-{
-	app_->canvas()->draw([=](GlFunctions*) {
-		// Colour mask.
-
-		colourShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/colour_mask_vertex.glsl");
-		colourShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/colour_mask_fragment.glsl");
-		colourShader_.bindAttributeLocation("position", 0);
-		colourShader_.link();
-
-		colourMultiplyShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/colour_mask_vertex.glsl");
-		colourMultiplyShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/colour_mask_multiply_fragment.glsl");
-		colourMultiplyShader_.bindAttributeLocation("position", 0);
-		colourMultiplyShader_.link();
-
-		// Texture mask.
-
-		maskTextureShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/mask_texture_vertex.glsl");
-		maskTextureShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/mask_texture_fragment.glsl");
-		maskTextureShader_.bindAttributeLocation("position", 0);
-		maskTextureShader_.link();
-
-		// White shader.
-
-		whiteShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/brush_segment_vertex.glsl");
-		whiteShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/brush_segment_fragment.glsl");
-		whiteShader_.bindAttributeLocation("position", 0);
-		whiteShader_.link();
-	});
 }

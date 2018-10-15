@@ -44,8 +44,6 @@ namespace a2img {
 
 		Vec2<int> oldSize_;
 		std::vector<Texture> oldTextures_;
-
-		QOpenGLShaderProgram textureShader_;
 	};
 }
 

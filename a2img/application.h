@@ -37,6 +37,7 @@
 #include "document/documentmanager.h"
 #include "thememanager.h"
 #include "settingsmanager.h"
+#include "shadermanager.h"
 
 namespace a2img {
     class Application : public QApplication
@@ -58,6 +59,9 @@ namespace a2img {
 		std::vector<Tool*> tools();
 		// Sets the currently selected tool.
 		void setCurrentTool(Tool* selectedTool);
+
+
+		ShaderManager shaderManager;
 
 	protected:
 		void loadTools();

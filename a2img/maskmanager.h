@@ -48,9 +48,6 @@ namespace a2img {
 		// Applies a mask to the background, returns the result.
 		Texture applyMask(GlFunctions* gl, const Texture& foreground, const Texture& background, const Texture& mask);
 
-	protected:
-		void loadShaders();
-
 	private:
 		Application* app_;
 

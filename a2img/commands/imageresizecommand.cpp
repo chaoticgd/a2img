@@ -31,11 +31,6 @@ a2img::ImageResizeCommand::ImageResizeCommand(Application* app, Document* docume
       smooth_(smooth),
       oldSize_(0, 0)
 {
-	app->canvas()->draw([=](GlFunctions* gl) {
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/texture_vertex.glsl");
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/texture_fragment.glsl");
-		textureShader_.link();
-	});
 }
 
 void a2img::ImageResizeCommand::redo()
@@ -57,11 +52,12 @@ void a2img::ImageResizeCommand::redo()
 				gl->glClearColor(0, 0, 0, 0);
 				gl->glClear(GL_COLOR_BUFFER_BIT);
 
-				textureShader_.bind();
+				auto textureShader = app_->shaderManager.get("texture");
+				textureShader->bind();
 
 				in.bind(gl, 0, smooth_ ? TextureQuality::smooth : TextureQuality::pixelated);
 
-				GLint samplerLocation = textureShader_.uniformLocation("texture");
+				GLint samplerLocation = textureShader->uniformLocation("texture");
 				gl->glUniform1i(samplerLocation, 0);
 
 				DefaultUvBuffer uvBuffer(gl);

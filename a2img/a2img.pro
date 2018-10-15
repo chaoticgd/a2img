@@ -84,7 +84,8 @@ SOURCES += \
     dialogs/aboutdialog.cpp \
     tools/lassotool.cpp \
     commands/imageresizecommand.cpp \
-    dialogs/imageresizedialog.cpp
+    dialogs/imageresizedialog.cpp \
+    shadermanager.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -149,7 +150,8 @@ HEADERS += \
     buildconfig.h \
     tools/lassotool.h \
     commands/imageresizecommand.h \
-    dialogs/imageresizedialog.h
+    dialogs/imageresizedialog.h \
+    shadermanager.h
 
 FORMS += \
         mainwindow.ui \

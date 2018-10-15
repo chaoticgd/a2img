@@ -43,5 +43,6 @@
         <file>effects_include/colour/hsv.glsl</file>
         <file>icons/textTool.svg</file>
         <file>icons/lassoTool.svg</file>
+        <file>shaders/colour_mask_multiply_vertex.glsl</file>
     </qresource>
 </RCC>

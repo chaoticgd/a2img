@@ -37,14 +37,6 @@ a2img::Layer::Layer(Application* app, Document* document, QString name)
 {
 	app_->canvas()->draw([=](GlFunctions* gl) {
 		texture_ = Texture(app, gl, document->size());
-
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/texture_vertex.glsl");
-		textureShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/texture_fragment.glsl");
-		textureShader_.link();
-
-		chequerBoardShader_.addShaderFromSourceFile(QOpenGLShader::Vertex, ":/shaders/chequerboard_vertex.glsl");
-		chequerBoardShader_.addShaderFromSourceFile(QOpenGLShader::Fragment, ":/shaders/chequerboard_fragment.glsl");
-		chequerBoardShader_.link();
 	});
 }
 
@@ -176,7 +168,7 @@ void a2img::Layer::drawSelf(GlFunctions* gl, QOpenGLFramebufferObject& fbo, bool
 	}*/
 
 	fbo.bind();
-	textureShader_.bind();
+	app_->shaderManager.get("texture")->bind();
 
 	gl->glActiveTexture(GL_TEXTURE0);
 	gl->glBindTexture(GL_TEXTURE_2D, intermediateTexture->id());
@@ -294,15 +286,16 @@ void a2img::Layer::updateThumbnail()
 		DefaultUvBuffer uvBuffer(gl);
 
 		// Draw chequer board.
-		chequerBoardShader_.bind();
-		GLint tileSizeLoc = chequerBoardShader_.uniformLocation("tileSize");
+		auto chequerBoardShader = app_->shaderManager.get("chequerboard");
+		chequerBoardShader->bind();
+		GLint tileSizeLoc = chequerBoardShader->uniformLocation("tileSize");
 		gl->glUniform1i(tileSizeLoc, 4);
 		gl->drawArrays(vertexBuffer, uvBuffer);
 
 		// Draw foreground.
 		texture_.bind(gl, 0, TextureQuality::smooth);
 
-		textureShader_.bind();
+		app_->shaderManager.get("texture")->bind();
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
